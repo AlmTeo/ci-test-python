@@ -1,0 +1,1 @@
+print("✅ GitHub Actions are running successfully!")
