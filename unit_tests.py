@@ -12,3 +12,12 @@ def test_function_to_test():
     # Test case where a <= 10
     result2 = mock_function(5, 3)
     assert result2 == 8, f"Expected 8, got {result2}"
+
+def test_function_to_test_invalid_input():
+    # Test case where a == 10 and b == 5 raises ValueError
+    try:
+        function_to_test(10, 5)
+    except ValueError as e:
+        assert str(e) == "Invalid input values", f"Expected 'Invalid input values', got {str(e)}"
+    else:
+        assert False, "Expected ValueError was not raised"
