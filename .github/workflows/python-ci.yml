@@ -1,59 +1,55 @@
 name: Python CI
 
 on:
-  push:
-    branches: [ main ]
+    push:
+        branches: [ main ]
+
+# jobs:
+    # run-script:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: Checkout repository
+    #           uses: actions/checkout@v3
+
+    #         - name: Set up Python
+    #           uses: actions/setup-python@v4
+    #           with:
+    #               python-version: '3.x'
+
+    #         - name: Run script
+    #           run: python script.py
 
 jobs:
-  run-script:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    run-tests:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: '3.x'
 
-      - name: Install dependencies
-        run: pip install requests pytest
+            - name: Install pytest
+              run: pip install requests pytest
 
-      - name: Run script
-        run: python script.py
+            - name: Run tests
+              run: pytest test_script.py
 
-  run-tests:
-    runs-on: ubuntu-latest
-    needs: run-script
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    run-unit-tests:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: '3.x'
 
-      - name: Install pytest
-        run: pip install pytest
+            - name: Install pytest
+              run: pip install pytest
 
-      - name: Run tests
-        run: pytest
-
-  run-unit-tests:
-    runs-on: ubuntu-latest
-    needs: run-script
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install pytest
-        run: pip install pytest
-
-      - name: Run unit tests
-        run: pytest unit_tests.py
+            - name: Run unit tests
+              run: pytest unit_tests.py
