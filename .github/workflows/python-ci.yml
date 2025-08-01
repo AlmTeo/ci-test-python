@@ -22,36 +22,8 @@ jobs:
             - name: Run tests
               run: pytest test_script.py
 
-    run-unit-tests:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-
-            - name: Set up Python
-              uses: actions/setup-python@v4
-              with:
-                  python-version: '3.x'
-
-            - name: Install pytest
-              run: pip install pytest
-
             - name: Run unit tests
               run: pytest unit_tests.py
-
-    run-site-pinger:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-
-            - name: Set up Python
-              uses: actions/setup-python@v4
-              with:
-                  python-version: '3.x'
-
-            - name: Install requests
-              run: pip install requests
 
             - name: Run site pinger script
               run: python site_pinger.py
@@ -63,3 +35,13 @@ jobs:
                 path: status.json
                 if-no-files-found: error
 
+            - name: Check content of status.json
+              run: |
+                STATUS=$(jq -r '.status' status.json)
+                echo "Status from JSON: $STATUS"
+                if [ "$STATUS" != "UP" ]; then
+                    echo "❌ Health check failed with status: $STATUS"
+                    exit 1
+                else
+                    echo "✅ Health check passed"
+                fi

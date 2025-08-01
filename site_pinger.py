@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import timezone, datetime
 
-def check_site_status(url="https://www.google.com/"):
+def check_site_status(url):
     try:
         response = requests.get(url, timeout=5)
         if response.status_code == 200:
@@ -13,19 +13,22 @@ def check_site_status(url="https://www.google.com/"):
         return f"ERROR ({str(e)})"
 
 if __name__ == "__main__":
-    result = check_site_status()
-    print(f"Health Check Result: {result}")
-
-
-if __name__ == "__main__":
-    status = check_site_status()
+    # url = "https://www.google.com/"
+    url = "https://httpstat.us/503"
+    status = check_site_status(url)
     timestamp = datetime.now(timezone.utc).isoformat()
 
+    # result = {
+    #     "url": "https://www.google.com/",
+    #     "status": status,
+    #     "timestamp": timestamp
+    # }
+
     result = {
-        "url": "https://www.google.com/",
-        "status": status,
-        "timestamp": timestamp
-    }
+        "url": "https://httpstat.us/503",
+        "status": "DOWN (503)",
+        "timestamp": "..."
+        }
 
     print("Health check result:", result)
 
