@@ -13,22 +13,22 @@ def check_site_status(url):
         return f"ERROR ({str(e)})"
 
 if __name__ == "__main__":
-    # url = "https://www.google.com/"
-    url = "https://httpstat.us/503"
+    url = "https://www.google.com/"
+    # url = "https://httpstat.us/503"
     status = check_site_status(url)
     timestamp = datetime.now(timezone.utc).isoformat()
 
-    # result = {
-    #     "url": "https://www.google.com/",
-    #     "status": status,
-    #     "timestamp": timestamp
-    # }
-
     result = {
-        "url": "https://httpstat.us/503",
-        "status": "DOWN (503)",
-        "timestamp": "..."
-        }
+        "url": "https://www.google.com/",
+        "status": status,
+        "timestamp": timestamp
+    }
+
+    # result = {
+    #     "url": "https://httpstat.us/503",
+    #     "status": "DOWN (503)",
+    #     "timestamp": "..."
+    #     }
 
     print("Health check result:", result)
 
